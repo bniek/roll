@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 function ManufacturerForm() {
   const [name, setName] = useState('');
+  const navigate = useNavigate();
+
   const handleNameChange = (event) => {
     const value = event.target.value;
     setName(value);
   }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,7 +33,9 @@ function ManufacturerForm() {
       const newManufacturer = await response.json();
       console.log(newManufacturer);
 
-      setName('');
+      setName();
+      navigate('/manufacturers/');
+
     }
   }
 
