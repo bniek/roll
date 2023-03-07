@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function VehicleModelForm(props) {
 
@@ -36,6 +37,8 @@ function VehicleModelForm(props) {
         setManufacturerId(value);
     }
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -43,7 +46,6 @@ function VehicleModelForm(props) {
         data.name = name;
         data.picture_url = pictureUrl;
         data.manufacturer_id = manufacturerId;
-        console.log(data);
 
         const vehicleModelUrl = 'http://localhost:8100/api/models/';
         const fetchConfig = {
@@ -56,13 +58,21 @@ function VehicleModelForm(props) {
         const response = await fetch(vehicleModelUrl, fetchConfig);
         if(response.ok){
             const newModel = await response.json();
-            console.log(newModel);
 
             setName('');
             setPictureUrl('');
             setManufacturerId('');
+            navigate('/models/');
+
+          //    this.state = {
+          //     data: data
+          //    }
+
+          //  const redirect = () => {this.setState({data: this.data});
+          //   }
+            }
+
         }
-    }
     useEffect(() => {
         fetchData();
     }, []);

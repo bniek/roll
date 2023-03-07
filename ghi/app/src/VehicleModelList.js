@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function VehicleModelList(props) {
-    console.log(props)
+    let navigate = useNavigate();
+const redirect = () =>{
+  let redirectUrl = `/models/new`;
+  navigate(redirectUrl);
+}
     return (
         <div>
+        <div></div>
+        <button className="btn btn-primary" onClick={redirect}>Add a vehicle model</button>
             <table className= "table">
                 <thead>
                     <tr>
