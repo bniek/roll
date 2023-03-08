@@ -1,40 +1,31 @@
 from django.db import models
-from django.urls import reverse
 
 
 class AutomobileVO(models.Model):
+    color = models.CharField(max_length=50, null=True)
+    year = models.PositiveSmallIntegerField(null=True)
     vin = models.CharField(max_length=17, unique=True)
-    import_href = models.CharField(max_length=200, unique=True)
-
-    def get_api_url(self):
-        return reverse("api_automobileVO", kwargs={"pk": self.id})
-
+    import_href = models.CharField(max_length=200, unique=True, null=True)
 
 
 class Technician(models.Model):
     technician_name = models.CharField(max_length=200)
     employee_number = models.PositiveIntegerField()
 
-    def get_api_url(self):
-        return reverse("api_technician", kwargs={"pk": self.id})
-
+    def __str__(self):
+        return self.technician_name
 
 
 class Appointments(models.Model):
-    owner_name = models.CharField(max_length=200)
-    date_time = models.DateTimeField()
-    reason = models.TextField()
-    bought_here = models.BooleanField(default=False)
-    technician = models.ForeignKey(
+    vin = models.CharField(max_length=17, null=True)
+    owner_name=models.CharField(max_length=200)
+    date=models.DateField(null=True)
+    time=models.TimeField(null=True)
+    reason=models.CharField(max_length=200)
+    technician= models.ForeignKey(
         Technician,
-        related_name="service_appointments",
-        on_delete=models.CASCADE,
+        related_name="technician",
+        on_delete=models.CASCADE
     )
-    automobile = models.ForeignKey(
-        AutomobileVO,
-        related_name="service_appointments",
-        on_delete=models.CASCADE,
-    )
-
-    def get_api_url(self):
-        return reverse("api_service_appointment", kwargs={"pk": self.id})
+    vip=models.BooleanField(default=False)
+    completed=models.BooleanField(default=False)
