@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 function SaleForm(props) {
 
-    const [autos, setAutos] = useState([]);
+    const [automobiles, setAutomobiles] = useState([]);
 
-    const fetchAutosData = async () => {
+    const fetchAutomobileData = async () => {
         const url = 'http://localhost:8100/api/automobiles/';
         const response = await fetch(url);
 
         if (response.ok){
-            const autosData = await response.json();
-            setAutos(autosData.autos);
+            const automobileData = await response.json();
+            setAutomobiles(automobileData.automobiles);
         }
     }
 
@@ -100,7 +100,7 @@ function SaleForm(props) {
         }
 
     useEffect(() => {
-        fetchAutosData();
+        fetchAutomobileData();
         fetchCustomerData();
         fetchSalesPeopleData();
     }, []);
@@ -114,7 +114,7 @@ function SaleForm(props) {
             <div className="form-floating mb-3">
                 <select onChange={handleAutomobileChange} value={automobile} required name="automobile" id="automobile" className="form-select">
                 <option value="">Choose an automobile</option>
-                  {autos?.map(automobile => {
+                  {automobiles?.map(automobile => {
                     return (
                       <option key={automobile.href} value={automobile.vin}>
                         {automobile.vin}

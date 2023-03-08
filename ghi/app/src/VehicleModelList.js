@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function VehicleModelList(props) {
 
 
+
     let navigate = useNavigate();
     const redirect = () =>{
     let redirectUrl = `/models/new`;
@@ -12,7 +13,6 @@ function VehicleModelList(props) {
     return (
         <div>
         <div></div>
-        <button className="btn btn-primary" onClick={redirect}>Add a vehicle model</button>
             <table className= "table">
                 <thead>
                     <tr>
@@ -33,6 +33,9 @@ function VehicleModelList(props) {
                     })}
                 </tbody>
             </table>
+            <div className="col text-center">
+            <button className="btn btn-outline-primary btn-sm px-4 gap-3" onClick={redirect}>Add a vehicle model</button>
+            </div>
         </div>
     );
 }
