@@ -2,11 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function VehicleModelList(props) {
+
+
     let navigate = useNavigate();
-const redirect = () =>{
-  let redirectUrl = `/models/new`;
-  navigate(redirectUrl);
-}
+    const redirect = () =>{
+    let redirectUrl = `/models/new`;
+    navigate(redirectUrl);
+    }
     return (
         <div>
         <div></div>

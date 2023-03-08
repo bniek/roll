@@ -1,6 +1,7 @@
 import React from "react";
 
 function SaleList(props) {
+
     return (
         <div>
             <table className= "table">
@@ -16,7 +17,7 @@ function SaleList(props) {
                 <tbody>
                     {props.sales?.map(sale => {
                         return (
-                            <tr key={sale.href}>
+                            <tr key={sale.automobile.vin}>
                                 <td>{sale.sales_person.name}</td>
                                 <td>{sale.sales_person.employee_number}</td>
                                 <td>{sale.customer.name}</td>

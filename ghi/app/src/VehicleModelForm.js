@@ -13,7 +13,6 @@ function VehicleModelForm(props) {
             const data = await response.json();
             setManufacturers(data.manufacturers);
         }
-        console.log(props)
     }
 
     const [name, setName] = useState('');
@@ -42,6 +41,7 @@ function VehicleModelForm(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+
         const data = {};
         data.name = name;
         data.picture_url = pictureUrl;
@@ -55,24 +55,21 @@ function VehicleModelForm(props) {
                 'Content-Type':'application/json',
             }
         }
+
         const response = await fetch(vehicleModelUrl, fetchConfig);
         if(response.ok){
             const newModel = await response.json();
+            // this.setState({data: newModel})
 
             setName('');
             setPictureUrl('');
             setManufacturerId('');
             navigate('/models/');
-
-          //    this.state = {
-          //     data: data
-          //    }
-
-          //  const redirect = () => {this.setState({data: this.data});
-          //   }
             }
 
-        }
+              // this.handleSubmit();
+            }
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -95,8 +92,7 @@ function VehicleModelForm(props) {
                 <select onChange={handleManufacturerIdChange} value={manufacturerId} required name="manufacture id" id="manufacturer id" className="form-select">
                   <option value="">Choose a manufacturer</option>
                   {manufacturers.map(manufacturer => {
-                    console.log(manufacturer.id)
-                    console.log(manufacturer.name)
+
                     return (
                       <option key={manufacturer.href} value={manufacturer.id}>
                         {manufacturer.name}

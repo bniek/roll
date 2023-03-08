@@ -4,6 +4,7 @@ import Nav from './Nav';
 import VehicleModelForm from './VehicleModelForm';
 import VehicleModelList from './VehicleModelList';
 import SaleList from './SaleList';
+import SaleForm from './SaleForm';
 
 function App(props) {
   return (
@@ -20,6 +21,9 @@ function App(props) {
           </Route>
           <Route path="sales" >
             <Route path="" element={<SaleList sales={props.sales} />} />
+          </Route>
+          <Route path="sales">
+            <Route path="new" element={<SaleForm />} />
           </Route>
         </Routes>
       </div>

@@ -86,7 +86,7 @@ def api_sales_people(request):
     if request.method == "GET":
         sales_people = SalesPerson.objects.all()
         return JsonResponse(
-            {"sales people": sales_people},
+            {"sales_people": sales_people},
             encoder=SalesPersonEncoder,
         )
     else:

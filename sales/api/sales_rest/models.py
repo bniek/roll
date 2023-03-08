@@ -23,7 +23,7 @@ class Customer(models.Model):
 
 class Sale(models.Model):
     price=models.CharField(max_length=20)
-    automobile = models.ForeignKey(
+    automobile = models.OneToOneField(
         AutomobileVO,
         related_name="sale",
         on_delete=models.PROTECT,
