@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 
 function AppointmentsList(props) {
-    const [services, setAppointments] = useState([]);
-    const [filterVin, setFilterVin] = useState("");
-
-    const fetchAppointmentList = async () => {
-
-        const appointmentsUrl = "http://localhost:8080/api/appointments/"
-        const fetchList = await fetch(appointmentsUrl)
-
-        if (fetchList.ok) {
-            const appointmentData = await fetchList.json()
-            setAppointments(appointmentData.services)
-        }
-    }
-
-    useEffect(() => {
-        fetchAppointmentList();
-    }, []);
+    const [filterVin, setFilterVin] = useState('');
 
 
 
