@@ -1,9 +1,27 @@
 
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 
 
 function ManufacturerList(props) {
+    const [manufacturers, setManufacturers] = useState([]);
+
+    const fetchData = async () => {
+        const url = 'http://localhost:8100/api/manufacturers/';
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const data = await response.json();
+          setManufacturers(data.manufacturers)
+        }
+      }
+
+      useEffect(() => {
+          fetchData();
+      }, []);
+
+
+
     return(
         <div>
             <table className="table">
@@ -13,7 +31,7 @@ function ManufacturerList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.manufacturers?.map(manufacturer => {
+                    {manufacturers?.map(manufacturer => {
                         return (
                             <tr key={manufacturer.id}>
                                 <td>{manufacturer.name}</td>

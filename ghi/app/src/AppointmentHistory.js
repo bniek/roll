@@ -2,36 +2,13 @@ import React, { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 
 
-function AppointmentsList() {
+function AppointmentHistory() {
     const [appointments, setAppointments] = useState([]);
+    const [filterVin, setFilterVin] = useState('');
 
-
-    async function deleteAppointment(id) {
-        const deleteUrl = `http://localhost:8080/api/appointments/${id}`
-        const deleteResponse = await fetch(deleteUrl, {method: 'delete'})
-        if (deleteResponse.ok) {
-            console.log('Deleted')
-        }
-    }
-
-    async function completeAppointment(id) {
-        const completeUrl = `http://localhost:8080/api/appointments/${id}/`;
-        const completeResponse = await fetch(completeUrl, {
-            method: 'PUT',
-            body: JSON.stringify({ completed: true }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        if (completeResponse.ok) {
-            console.log('Completed');
-            const updatedAppointments = appointments.map(appointment => {
-                if (appointment.id === id) {
-                    return {completed: true};
-                }
-                return appointment;
-            });
-            setAppointments(updatedAppointments);
-        }
-    }
+    const filteredAppointments = appointments?.filter(appointment => {
+        return appointment.vin.includes(filterVin) && appointment.completed;
+    });
 
     const fetchData = async () => {
       const url = 'http://localhost:8080/api/appointments/';
@@ -50,7 +27,13 @@ function AppointmentsList() {
 
     return(
         <div>
-            <h1 style={{ marginTop: '20px' }}>All Upcoming Appointments</h1>
+            <h1 style={{ marginTop: '20px' }}>Past Appointments</h1>
+
+            <form className="d-flex" style={{ margin: '10px' }}>
+                <input value={filterVin} onChange={(e) => setFilterVin(e.target.value)} className="form-control me-2" type="search" placeholder="Search by VIN" aria-label="Search past appointments by VIN" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
 
             <table className="table">
                 <thead>
@@ -61,11 +44,11 @@ function AppointmentsList() {
                         <th scope="col">Time</th>
                         <th scope="col">Technician</th>
                         <th scope="col">Reason</th>
-                        <th scope="col">VIP Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {appointments.filter(appointment => !appointment.completed)?.map(appointment => {
+                    {/* {appointments.filter(appointment => appointment.completed)?.map(appointment => { */}
+                    {filteredAppointments.map(appointment => {
                         return (
                             <tr key={appointment.vin}>
                                 <td>{appointment.vin}</td>
@@ -74,11 +57,6 @@ function AppointmentsList() {
                                 <td>{appointment.time}</td>
                                 <td>{appointment.technician}</td>
                                 <td>{appointment.reason}</td>
-                                <td>{appointment.vip ? 'Yes' : 'No'}</td>
-                                <td>
-                                    <button onClick={() => completeAppointment(appointment.id)} type="button" className="btn btn-success btn-sm">Completed</button>
-                                    <button onClick={() => deleteAppointment(appointment.id)} type="button" className="btn btn-outline-secondary btn-sm">Cancel</button>
-                                </td>
                             </tr>
                         );
                     })}
@@ -91,4 +69,4 @@ function AppointmentsList() {
     );
 }
 
-export default AppointmentsList;
+export default AppointmentHistory;

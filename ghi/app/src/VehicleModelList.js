@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
-function VehicleModelList(props) {
+function VehicleModelList() {
+    const [models, setModels] = useState([]);
 
+    const fetchData = async () => {
+        const url = 'http://localhost:8100/api/models/';
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const data = await response.json();
+          setModels(data.models)
+        }
+      }
+
+      useEffect(() => {
+          fetchData();
+      }, []);
 
 
     let navigate = useNavigate();
@@ -22,7 +36,7 @@ function VehicleModelList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.models?.map(model => {
+                    {models?.map(model => {
                         return (
                             <tr key={model.href}>
                                 <td>{model.name}</td>
