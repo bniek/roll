@@ -27,6 +27,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'sales_rest.apps.SalesRestConfig',
+    "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +53,10 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8080",
+    "http://localhost:8090",
+    "http://localhost:8100",
+
+
 
 ]
 
