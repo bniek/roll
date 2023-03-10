@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 
-function SaleList(props) {
+function SaleList() {
+
+    const [sales, setSales] = useState([]);
+
+    const fetchData = async () => {
+        const url = 'http://localhost:8090/api/sales/';
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const data = await response.json();
+          setSales(data.sales)
+        }
+      }
+
+      useEffect(() => {
+          fetchData();
+      }, []);
 
     return (
         <div>
@@ -15,7 +31,7 @@ function SaleList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.sales?.map(sale => {
+                    {sales?.map(sale => {
                         return (
                             <tr key={sale.automobile.vin}>
                                 <td>{sale.sales_person.name}</td>
