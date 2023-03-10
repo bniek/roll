@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 function SalesPersonHistory() {
     const [salesPeople, setSalesPeople] = useState([]);
     const [sales, setSales] = useState([]);

@@ -66,7 +66,6 @@ function AutomobileForm() {
   }
 
   const fetchData = async () => {
-    console.log("TRIGGER");
     const modelUrl = 'http://localhost:8100/api/models/';
     const modelResponse = await fetch(modelUrl);
     if (modelResponse.ok) {
@@ -78,9 +77,6 @@ function AutomobileForm() {
   useEffect(() => {
     fetchData();
   }, []);
-
-
-
 
   return (
     <div className="row">

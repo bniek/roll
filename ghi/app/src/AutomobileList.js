@@ -34,7 +34,7 @@ function AutomobileList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {automobiles?.map(automobile => {
+                    {automobiles?.map(automobile => { if(automobile.sold === false)
                         return (
                             <tr key={automobile.id}>
                                 <td>{automobile.vin}</td>

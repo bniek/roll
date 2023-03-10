@@ -3,18 +3,46 @@ import { useNavigate } from 'react-router-dom';
 
 function SaleForm() {
 
+    const navigate = useNavigate();
     const [sales, setSales] = useState([]);
+    const [automobiles, setAutomobiles] = useState([]);
+    const [salesPeople, setSalesPeople] = useState([]);
+    const [customers, setCustomers] = useState([]);
+    const [price, setPrice] = useState('');
+    const [automobile, setAutomobile] = useState('');
+    const [salesPerson, setSalesPerson] = useState('');
+    const [customer, setCustomer] = useState('');
+
+
+    const handlePriceChange = (event) => {
+      const value = event.target.value;
+      setPrice(value);
+  }
+
+  const handleAutomobileChange = (event) => {
+      const value = event.target.value;
+      setAutomobile(value);
+  }
+
+  const handleSalesPersonChange = (event) => {
+      const value = event.target.value;
+      setSalesPerson(value);
+  }
+
+  const handleCustomerChange = (event) => {
+      const value = event.target.value;
+      setCustomer(value);
+  }
+
 
     const fetchSalesData = async () => {
       const url = 'http://localhost:8090/api/sales';
-      const response = await fetch(url);
-      if (response.ok){
-          const salesData = await response.json();
+      const salesResponse = await fetch(url);
+      if (salesResponse.ok){
+          const salesData = await salesResponse.json();
           setSales(salesData.sales);
       }
   }
-
-    const [automobiles, setAutomobiles] = useState([]);
 
     const fetchAutomobileData = async () => {
         const url = 'http://localhost:8100/api/automobiles/';
@@ -26,8 +54,6 @@ function SaleForm() {
         }
     }
 
-    const [salesPeople, setSalesPeople] = useState([]);
-
     const fetchSalesPeopleData = async () => {
         const url = 'http://localhost:8090/api/salespeople/';
         const response = await fetch(url);
@@ -36,7 +62,7 @@ function SaleForm() {
             setSalesPeople(salesPeopleData.sales_people);
         }
     }
-    const [customers, setCustomers] = useState([]);
+
 
     const fetchCustomerData = async () => {
         const url = 'http://localhost:8090/api/customers/';
@@ -46,42 +72,6 @@ function SaleForm() {
             setCustomers(CustomerData.customers);
         }
       }
-
-    const [price, setPrice] = useState('');
-
-    const handlePriceChange = (event) => {
-        const value = event.target.value;
-        setPrice(value);
-    }
-
-    const [automobile, setAutomobile] = useState('');
-
-    const handleAutomobileChange = (event) => {
-        const value = event.target.value;
-        setAutomobile(value);
-    }
-
-    const [sold, setSold] = useState('');
-
-    const handleSoldChange = (event) => {
-        ;
-    }
-
-    const [salesPerson, setSalesPerson] = useState('');
-
-    const handleSalesPersonChange = (event) => {
-        const value = event.target.value;
-        setSalesPerson(value);
-    }
-
-    const [customer, setCustomer] = useState('');
-
-    const handleCustomerChange = (event) => {
-        const value = event.target.value;
-        setCustomer(value);
-    }
-
-    const navigate = useNavigate();
 
     const updateAutomobile = async (automobile) => {
             const soldUrl = `http://localhost:8100/api/automobiles/${automobile}/`;
@@ -120,8 +110,8 @@ function SaleForm() {
             setSalesPerson('');
             setCustomer('');
 
-            setSales([...sales, newSale])
-            navigate('/sales/')
+            setSales([...sales, newSale]);
+            navigate('/sales/');
             fetchSalesData();
 
             }
