@@ -90,6 +90,7 @@ function SaleForm() {
                 body: JSON.stringify({ sold: true }),
                 headers: { 'Content-Type': 'application/json' }
             })
+
           }
 
     const handleSubmit = async (event) => {

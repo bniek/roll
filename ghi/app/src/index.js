@@ -15,14 +15,20 @@ async function loadData () {
   const modelResponse = await fetch('http://localhost:8100/api/models/');
   const manufacturerResponse = await fetch('http://localhost:8100/api/manufacturers/');
   const automobileResponse = await fetch('http://localhost:8100/api/automobiles/');
-  if(modelResponse.ok  && manufacturerResponse.ok && saleResponse.ok && automobileResponse.ok) {
-    const manufacturerData = await manufacturerResponse.json();
+  const appointmentResponse = await fetch('http://localhost:8080/api/appointments/');
+
+
+  if (modelResponse.ok && manufacturerResponse.ok && saleResponse.ok && automobileResponse.ok && appointmentResponse.ok) {
     const modelData = await modelResponse.json();
+    const manufacturerData = await manufacturerResponse.json();
     const saleData = await saleResponse.json();
     const automobileData = await automobileResponse.json();
+    const appointmentData = await appointmentResponse.json();
+
+
     root.render(
       <React.StrictMode>
-        <App models={modelData.models} manufacturers={manufacturerData.manufacturers} sales={saleData.sales} automobiles={automobileData.automobiles}/>
+        <App sales={saleData.sales} manufacturers={manufacturerData.manufacturers} automobiles={automobileData.automobiles} appointments={appointmentData.appointments} models={modelData.models}/>
       </React.StrictMode>
     );
   } else {
@@ -30,6 +36,8 @@ async function loadData () {
     console.error(modelResponse);
     console.error(saleResponse);
     console.error(automobileResponse);
+    console.error(appointmentResponse);
+
 
   }
 }

@@ -1,16 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function AutomobileForm() {
+  const navigate = useNavigate();
   const [models, setModels] = useState([]);
-  const fetchData = async () => {
-    const url = 'http://localhost:8100/api/models/';
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      setModels(data.models)
-    }
-  }
-
   const [color, setColor] = useState('');
   const [year, setYear] = useState('');
   const [vin, setVin] = useState('');
@@ -65,13 +59,27 @@ function AutomobileForm() {
       setYear('');
       setVin('');
       setModel('');
+      navigate('/automobiles/');
 
+
+    }
+  }
+
+  const fetchData = async () => {
+    console.log("TRIGGER");
+    const modelUrl = 'http://localhost:8100/api/models/';
+    const modelResponse = await fetch(modelUrl);
+    if (modelResponse.ok) {
+      const modelData = await modelResponse.json();
+      setModels(modelData.models)
     }
   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+
 
 
   return (

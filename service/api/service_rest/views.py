@@ -36,8 +36,8 @@ class AppointmentEncoder(ModelEncoder):
         "time",
         "reason",
         "vip",
-        "completed",
-        "id"
+        "id",
+        "completed"
     ]
     def get_extra_data(self,o):
         return {"technician": o.technician.technician_name}
@@ -102,3 +102,19 @@ def api_list_appointments(request, automobile_vo_vin=None):
                     encoder = AppointmentEncoder,
                     safe = False
                 )
+
+
+@require_http_methods(["DELETE", "PUT"])
+def api_delete_appointment(request, id):
+    if request.method == "DELETE":
+        count, _ = Appointments.objects.filter(id=id).delete()
+        return JsonResponse({"Deleted": count > 0})
+    else:
+        content=json.loads(request.body)
+        Appointments.objects.filter(id=id).update(**content)
+        appointment=Appointments.objects.get(id=id)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False
+        )

@@ -12,15 +12,15 @@ function Nav() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
-            </li>
-            <li className="nav-item">
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link" to="/manufacturers">Manufacturers</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/models">Models</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/automobiles">Inventory</NavLink>
+            <NavLink className="nav-link" to="/automobiles">Automobiles</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/customers/new">Add a potential customer</NavLink>
@@ -38,13 +38,16 @@ function Nav() {
             <NavLink className="nav-link" to="/sales/new">Create a sales record</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/technicians/new">Add a new technician</NavLink>
+            <NavLink className="nav-link" to="/technicians/new">Add technician</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/appointments">All appointments</NavLink>
+            <NavLink className="nav-link" to="/appointments">Appointments</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/appointments/new">Make an appointment</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/appointments/history">Appointment History</NavLink>
           </li>
           </ul>
         </div>
