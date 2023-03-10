@@ -2,8 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SaleForm(props) {
-
+    const navigate = useNavigate();
     const [automobiles, setAutomobiles] = useState([]);
+    const [sales, setSales] = useState([]);
+    const [salesPeople, setSalesPeople] = useState([]);
+    const [customers, setCustomers] = useState([]);
+    const [price, setPrice] = useState('');
+    const [automobile, setAutomobile] = useState('');
+    const [salesPerson, setSalesPerson] = useState('');
+    const [customer, setCustomer] = useState('');
+
+
+    const fetchSalesData = async () => {
+      const url = 'http://localhost:8090/api/sales/';
+      const response = await fetch(url);
+      if (response.ok){
+          const salesData = await response.json();
+          setSales(salesData.sales);
+      }
+  }
 
     const fetchAutomobileData = async () => {
         const url = 'http://localhost:8100/api/automobiles/';
@@ -15,7 +32,6 @@ function SaleForm(props) {
         }
     }
 
-    const [salesPeople, setSalesPeople] = useState([]);
 
     const fetchSalesPeopleData = async () => {
         const url = 'http://localhost:8090/api/sales/salespeople/';
@@ -25,7 +41,6 @@ function SaleForm(props) {
             setSalesPeople(salesPeopleData.sales_people);
         }
     }
-    const [customers, setCustomers] = useState([]);
 
     const fetchCustomerData = async () => {
         const url = 'http://localhost:8090/api/sales/customers/';
@@ -36,35 +51,30 @@ function SaleForm(props) {
         }
       }
 
-    const [price, setPrice] = useState('');
 
     const handlePriceChange = (event) => {
         const value = event.target.value;
         setPrice(value);
     }
 
-    const [automobile, setAutomobile] = useState('');
 
     const handleAutomobileChange = (event) => {
         const value = event.target.value;
         setAutomobile(value);
     }
 
-    const [salesPerson, setSalesPerson] = useState('');
 
     const handleSalesPersonChange = (event) => {
         const value = event.target.value;
         setSalesPerson(value);
     }
 
-    const [customer, setCustomer] = useState('');
 
     const handleCustomerChange = (event) => {
         const value = event.target.value;
         setCustomer(value);
     }
 
-    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -92,18 +102,20 @@ function SaleForm(props) {
             setAutomobile('');
             setSalesPerson('');
             setCustomer('');
+
+            setSales([...sales, newSale]);
             navigate('/sales/')
 
-            }
-
-
+            fetchSalesData();
         }
+    }
 
     useEffect(() => {
         fetchAutomobileData();
         fetchCustomerData();
         fetchSalesPeopleData();
-    }, []);
+
+      }, []);
 
     return (
         <div className="row">
