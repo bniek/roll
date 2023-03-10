@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-
-
 function ManufacturerForm() {
   const [name, setName] = useState('');
   const navigate = useNavigate();
@@ -31,7 +29,6 @@ function ManufacturerForm() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const newManufacturer = await response.json();
-      console.log(newManufacturer);
 
       setName();
       navigate('/manufacturers/');

@@ -10,6 +10,10 @@ import ManufacturerList from './ManufacturerList';
 import AutomobileList from './AutomobileList';
 import AutomobileForm from './AutomobileForm';
 import TechnicianForm from './TechnicianForm';
+import SalesPersonForm from './SalesPersonForm'
+import CustomerForm from './CustomerForm';
+import SalesPersonHistory from './SalesPersonHistory';
+
 
 function App(props) {
   return (
@@ -24,8 +28,15 @@ function App(props) {
           <Route path="models">
             <Route path="new" element={<VehicleModelForm />} />
           </Route>
+          <Route path="customers">
+              <Route path="new" element={<CustomerForm />} />
+          </Route>
           <Route path="sales" >
             <Route path="" element={<SaleList sales={props.sales} />} />
+          </Route>
+          <Route path="salespeople">
+            <Route path="new" element={<SalesPersonForm />} />
+            <Route path="history" element={<SalesPersonHistory salesPeople={props.sales} />}/>
           </Route>
           <Route path="sales">
             <Route path="new" element={<SaleForm />} />

@@ -5,6 +5,7 @@ from django.urls import reverse
 class AutomobileVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True, null=True)
     vin = models.CharField(max_length=17, unique=True)
+    sold = models.BooleanField(default=False)
 
 class SalesPerson(models.Model):
     name = models.CharField(max_length=25)
@@ -15,7 +16,7 @@ class SalesPerson(models.Model):
 
 class Customer(models.Model):
     name = models.CharField(max_length=25)
-    address = models.CharField(max_length=25)
+    address = models.CharField(max_length=45)
     phone_number = models.CharField(max_length=12, unique=True)
 
     def get_api_url(self):

@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SaleForm(props) {
+function SaleForm() {
+
+    const [sales, setSales] = useState([]);
+
+    const fetchSalesData = async () => {
+      const url = 'http://localhost:8090/api/sales';
+      const response = await fetch(url);
+      if (response.ok){
+          const salesData = await response.json();
+          setSales(salesData.sales);
+      }
+  }
 
     const [automobiles, setAutomobiles] = useState([]);
 
@@ -18,7 +29,7 @@ function SaleForm(props) {
     const [salesPeople, setSalesPeople] = useState([]);
 
     const fetchSalesPeopleData = async () => {
-        const url = 'http://localhost:8090/api/sales/salespeople/';
+        const url = 'http://localhost:8090/api/salespeople/';
         const response = await fetch(url);
         if (response.ok){
             const salesPeopleData = await response.json();
@@ -28,7 +39,7 @@ function SaleForm(props) {
     const [customers, setCustomers] = useState([]);
 
     const fetchCustomerData = async () => {
-        const url = 'http://localhost:8090/api/sales/customers/';
+        const url = 'http://localhost:8090/api/customers/';
         const response = await fetch(url);
         if (response.ok){
             const CustomerData = await response.json();
@@ -50,6 +61,12 @@ function SaleForm(props) {
         setAutomobile(value);
     }
 
+    const [sold, setSold] = useState('');
+
+    const handleSoldChange = (event) => {
+        ;
+    }
+
     const [salesPerson, setSalesPerson] = useState('');
 
     const handleSalesPersonChange = (event) => {
@@ -65,6 +82,15 @@ function SaleForm(props) {
     }
 
     const navigate = useNavigate();
+
+    const updateAutomobile = async (automobile) => {
+            const soldUrl = `http://localhost:8100/api/automobiles/${automobile}/`;
+            const soldResponse = await fetch(soldUrl, {
+                method: 'PUT',
+                body: JSON.stringify({ sold: true }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+          }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -92,7 +118,10 @@ function SaleForm(props) {
             setAutomobile('');
             setSalesPerson('');
             setCustomer('');
+
+            setSales([...sales, newSale])
             navigate('/sales/')
+            fetchSalesData();
 
             }
 
@@ -103,6 +132,7 @@ function SaleForm(props) {
         fetchAutomobileData();
         fetchCustomerData();
         fetchSalesPeopleData();
+        fetchSalesData();
     }, []);
 
     return (
@@ -114,7 +144,7 @@ function SaleForm(props) {
             <div className="form-floating mb-3">
                 <select onChange={handleAutomobileChange} value={automobile} required name="automobile" id="automobile" className="form-select">
                 <option value="">Choose an automobile</option>
-                  {automobiles?.map(automobile => {
+                  {automobiles?.map(automobile => { if(automobile.sold === false)
                     return (
                       <option key={automobile.href} value={automobile.vin}>
                         {automobile.vin}
@@ -151,7 +181,7 @@ function SaleForm(props) {
                 <input onChange={handlePriceChange} value={price} placeholder="Price" required type="text" name="price"  id="price" className="form-control"/>
                 <label htmlFor="price">Sale price</label>
               </div>
-              <button className="btn btn-primary">Submit</button>
+              <button onClick={() => updateAutomobile(automobile)} className="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>

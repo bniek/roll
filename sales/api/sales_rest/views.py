@@ -8,15 +8,17 @@ from .models import SalesPerson, Sale, Customer, AutomobileVO
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
-        "vin"
+        "vin",
+        "sold",
     ]
 
 class SalesPersonEncoder(ModelEncoder):
     model=SalesPerson
     properties = [
         "name",
-        "employee_number"
+        "employee_number",
     ]
+
 
 class CustomerEncoder(ModelEncoder):
     model=Customer
@@ -63,16 +65,6 @@ def api_sales(request):
                  {"message": "invalid automobile vin"},
                  status=400,
              )
-        # except SalesPerson.DoesNotExist:
-        #      return JsonResponse(
-        #         {"message": "invalid employee number"},
-        #         status = 400,
-        #         )
-        # except Customer.DoesNotExist:
-        #     return JsonResponse(
-        #         {"message": "invalid customer phone number"},
-        #         status = 400,
-        #     )
         sale = Sale.objects.create(**content)
         return JsonResponse(
             sale,
