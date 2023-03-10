@@ -24,7 +24,7 @@ git clone https://gitlab.com/Junabranca/project-beta
     docker-compose up
     ```
 3. In your browser (we suggest Chrome!), open http://localhost:3000
-4. Fill out forms from the left to right on the nav bar; without first populating inventory, personnel, and customer data, lists and some forms will not work as intended.
+4. Fill out inventory forms first; without populating inventory, personnel, and customer data, lists and some forms will not work as intended.
 
 
 
