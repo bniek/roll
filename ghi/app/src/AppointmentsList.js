@@ -9,9 +9,7 @@ function AppointmentsList() {
     async function deleteAppointment(id) {
         const deleteUrl = `http://localhost:8080/api/appointments/${id}`
         const deleteResponse = await fetch(deleteUrl, {method: 'delete'})
-        if (deleteResponse.ok) {
-            console.log('Deleted')
-        }
+
     }
 
     async function completeAppointment(id) {
@@ -22,7 +20,6 @@ function AppointmentsList() {
             headers: { 'Content-Type': 'application/json' }
         });
         if (completeResponse.ok) {
-            console.log('Completed');
             const updatedAppointments = appointments.map(appointment => {
                 if (appointment.id === id) {
                     return {completed: true};
